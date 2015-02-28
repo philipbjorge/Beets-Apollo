@@ -21,6 +21,7 @@ import com.andrew.apollo.R;
 import com.andrew.apollo.model.Album;
 import com.andrew.apollo.utils.Lists;
 import com.andrew.apollo.utils.PreferenceUtils;
+import com.philipbjorge.beets.BeetsContentResolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +105,7 @@ public class ArtistAlbumLoader extends WrappedAsyncTaskLoader<List<Album>> {
      * @param artistId The Id of the artist the albums belong to.
      */
     public static final Cursor makeArtistAlbumCursor(final Context context, final Long artistId) {
-        return context.getContentResolver().query(
+        return BeetsContentResolver.query(
                 MediaStore.Audio.Artists.Albums.getContentUri("external", artistId), new String[] {
                         /* 0 */
                         BaseColumns._ID,
