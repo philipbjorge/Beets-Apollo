@@ -21,6 +21,7 @@ import com.andrew.apollo.R;
 import com.andrew.apollo.model.Album;
 import com.andrew.apollo.utils.Lists;
 import com.andrew.apollo.utils.PreferenceUtils;
+import com.philipbjorge.beets.BeetsContentResolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +100,7 @@ public class AlbumLoader extends WrappedAsyncTaskLoader<List<Album>> {
      * @return The {@link Cursor} used to run the album query.
      */
     public static final Cursor makeAlbumCursor(final Context context) {
-        return context.getContentResolver().query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+		return BeetsContentResolver.query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
                 new String[] {
                         /* 0 */
                         BaseColumns._ID,
