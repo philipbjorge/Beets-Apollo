@@ -20,6 +20,7 @@ import android.provider.MediaStore.Audio.AudioColumns;
 import com.andrew.apollo.model.Song;
 import com.andrew.apollo.utils.Lists;
 import com.andrew.apollo.utils.PreferenceUtils;
+import com.philipbjorge.beets.BeetsContentResolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,7 +113,7 @@ public class AlbumSongLoader extends WrappedAsyncTaskLoader<List<Song>> {
         selection.append(AudioColumns.IS_MUSIC + "=1");
         selection.append(" AND " + AudioColumns.TITLE + " != ''");
         selection.append(" AND " + AudioColumns.ALBUM_ID + "=" + albumId);
-        return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+        return BeetsContentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 new String[] {
                         /* 0 */
                         BaseColumns._ID,
