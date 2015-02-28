@@ -11,6 +11,10 @@
 
 package com.andrew.apollo.utils;
 
+import java.io.File;
+import java.util.Arrays;
+import java.util.WeakHashMap;
+
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -51,10 +55,7 @@ import com.andrew.apollo.provider.FavoritesStore;
 import com.andrew.apollo.provider.FavoritesStore.FavoriteColumns;
 import com.andrew.apollo.provider.RecentStore;
 import com.devspark.appmsg.AppMsg;
-
-import java.io.File;
-import java.util.Arrays;
-import java.util.WeakHashMap;
+import com.philipbjorge.beets.BeetsContentResolver;
 
 /**
  * A collection of helpers directly related to music or Apollo's service.
@@ -507,7 +508,7 @@ public final class MusicUtils {
         };
         final String selection = AudioColumns.ARTIST_ID + "=" + id + " AND "
                 + AudioColumns.IS_MUSIC + "=1";
-        Cursor cursor = context.getContentResolver().query(
+        Cursor cursor = BeetsContentResolver.query(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection, null,
                 AudioColumns.ALBUM_KEY + "," + AudioColumns.TRACK);
         if (cursor != null) {
@@ -530,7 +531,7 @@ public final class MusicUtils {
         };
         final String selection = AudioColumns.ALBUM_ID + "=" + id + " AND " + AudioColumns.IS_MUSIC
                 + "=1";
-        Cursor cursor = context.getContentResolver().query(
+        Cursor cursor = BeetsContentResolver.query(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, projection, selection, null,
                 AudioColumns.TRACK + ", " + MediaStore.Audio.Media.DEFAULT_SORT_ORDER);
         if (cursor != null) {
@@ -569,7 +570,7 @@ public final class MusicUtils {
         selection.append(AudioColumns.IS_MUSIC + "=1");
         selection.append(" AND " + MediaColumns.TITLE + "!=''");
         final Uri uri = MediaStore.Audio.Genres.Members.getContentUri("external", Long.valueOf(id));
-        Cursor cursor = context.getContentResolver().query(uri, projection, selection.toString(),
+        Cursor cursor = BeetsContentResolver.query(uri, projection, selection.toString(),
                 null, null);
         if (cursor != null) {
             final long[] mList = getSongListForCursor(cursor);
@@ -719,7 +720,7 @@ public final class MusicUtils {
      * @return The ID for an artist.
      */
     public static final long getIdForArtist(final Context context, final String name) {
-        Cursor cursor = context.getContentResolver().query(
+        Cursor cursor = BeetsContentResolver.query(
                 MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI, new String[] {
                     BaseColumns._ID
                 }, ArtistColumns.ARTIST + "=?", new String[] {
@@ -747,7 +748,7 @@ public final class MusicUtils {
      */
     public static final long getIdForAlbum(final Context context, final String albumName,
             final String artistName) {
-        Cursor cursor = context.getContentResolver().query(
+        Cursor cursor = BeetsContentResolver.query(
                 MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, new String[] {
                     BaseColumns._ID
                 }, AlbumColumns.ALBUM + "=? AND " + AlbumColumns.ARTIST + "=?", new String[] {
@@ -947,7 +948,7 @@ public final class MusicUtils {
             return null;
         }
         Uri uri = ContentUris.withAppendedId(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, id);
-        Cursor cursor = context.getContentResolver().query(uri, new String[] {
+        Cursor cursor = BeetsContentResolver.query(uri, new String[] {
                     AlbumColumns.NUMBER_OF_SONGS
                 }, null, null, null);
         String songCount = null;
@@ -972,7 +973,7 @@ public final class MusicUtils {
             return null;
         }
         Uri uri = ContentUris.withAppendedId(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI, id);
-        Cursor cursor = context.getContentResolver().query(uri, new String[] {
+        Cursor cursor = BeetsContentResolver.query(uri, new String[] {
                     AlbumColumns.FIRST_YEAR
                 }, null, null, null);
         String releaseDate = null;
