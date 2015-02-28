@@ -11,6 +11,9 @@
 
 package com.andrew.apollo.loaders;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.BaseColumns;
@@ -19,9 +22,7 @@ import android.provider.MediaStore.Audio.AudioColumns;
 
 import com.andrew.apollo.model.Song;
 import com.andrew.apollo.utils.Lists;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.philipbjorge.beets.BeetsContentResolver;
 
 /**
  * Used to query {@link MediaStore.Audio.Media.EXTERNAL_CONTENT_URI} and return
@@ -104,7 +105,7 @@ public class LastAddedLoader extends WrappedAsyncTaskLoader<List<Song>> {
         selection.append(" AND " + AudioColumns.TITLE + " != ''"); //$NON-NLS-2$
         selection.append(" AND " + MediaStore.Audio.Media.DATE_ADDED + ">"); //$NON-NLS-2$
         selection.append(System.currentTimeMillis() / 1000 - fourWeeks);
-        return context.getContentResolver().query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+        return BeetsContentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 new String[] {
                         /* 0 */
                         BaseColumns._ID,
