@@ -3,6 +3,8 @@ package com.andrew.apollo.loaders;
 
 import static com.andrew.apollo.utils.MusicUtils.mService;
 
+import java.util.Arrays;
+
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.AbstractCursor;
@@ -12,10 +14,8 @@ import android.provider.BaseColumns;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Audio.AudioColumns;
 
-import com.andrew.apollo.utils.ApolloUtils;
 import com.andrew.apollo.utils.MusicUtils;
-
-import java.util.Arrays;
+import com.philipbjorge.beets.BeetsContentResolver;
 
 /**
  * A custom {@link Cursor} used to return the queue and allow for easy dragging
@@ -230,7 +230,7 @@ public class NowPlayingCursor extends AbstractCursor {
         }
         selection.append(")");
 
-        mQueueCursor = mContext.getContentResolver().query(
+        mQueueCursor = BeetsContentResolver.query(
                 MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, PROJECTION, selection.toString(),
                 null, MediaStore.Audio.Media._ID);
 
