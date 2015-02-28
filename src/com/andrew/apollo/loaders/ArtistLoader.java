@@ -21,6 +21,7 @@ import com.andrew.apollo.R;
 import com.andrew.apollo.model.Artist;
 import com.andrew.apollo.utils.Lists;
 import com.andrew.apollo.utils.PreferenceUtils;
+import com.philipbjorge.beets.BeetsContentResolver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,7 +97,7 @@ public class ArtistLoader extends WrappedAsyncTaskLoader<List<Artist>> {
      * @return The {@link Cursor} used to run the artist query.
      */
     public static final Cursor makeArtistCursor(final Context context) {
-        return context.getContentResolver().query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI,
+        return BeetsContentResolver.query(MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI,
                 new String[] {
                         /* 0 */
                         BaseColumns._ID,
