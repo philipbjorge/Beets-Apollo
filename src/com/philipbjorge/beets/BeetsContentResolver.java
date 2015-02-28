@@ -45,6 +45,8 @@ public class BeetsContentResolver {
 		
 		MatrixCursor c = new MatrixCursor(projection);
 		
+		// TODO: NASTY NASTY NASTY Hack to make the static musicutils resolvers work
+		// These queries are assumed to be fast, so don't excute on an asynctask...
 		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy); 
 		
