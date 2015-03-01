@@ -13,6 +13,7 @@ package com.andrew.apollo.cache;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -20,11 +21,13 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.TransitionDrawable;
 import android.os.AsyncTask;
+import android.provider.MediaStore;
 import android.widget.ImageView;
 
 import com.andrew.apollo.R;
 import com.andrew.apollo.utils.ApolloUtils;
 import com.andrew.apollo.utils.ThemeUtils;
+import com.philipbjorge.beets.BeetsContentResolver;
 
 import java.lang.ref.WeakReference;
 import java.util.concurrent.RejectedExecutionException;
@@ -225,8 +228,17 @@ public abstract class ImageWorker {
             // Second, if we're fetching artwork, check the device for the image
             if (bitmap == null && mImageType.equals(ImageType.ALBUM) && mAlbumId >= 0
                     && mKey != null && !isCancelled() && getAttachedImageView() != null
-                    && mImageCache != null) {
-                bitmap = mImageCache.getCachedArtwork(mContext, mKey, mAlbumId);
+                    && mImageCache != null && ApolloUtils.isOnline(mContext)) {
+            	Cursor c = BeetsContentResolver.query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+            			new String[] { "album_art" }, "_id=?", new String[] { String.valueOf(mAlbumId) }, null);
+            	if (c.moveToFirst())
+            	{
+	            	mUrl = c.getString(0);
+	            	if (mUrl != null && mUrl.length() > 0)
+	            	{
+	            		bitmap = processBitmap(mUrl);
+	            	}
+            	}
             }
 
             // Third, by now we need to download the image
