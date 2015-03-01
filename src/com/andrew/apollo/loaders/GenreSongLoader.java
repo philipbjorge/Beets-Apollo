@@ -11,15 +11,16 @@
 
 package com.andrew.apollo.loaders;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
 import com.andrew.apollo.model.Song;
 import com.andrew.apollo.utils.Lists;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.philipbjorge.beets.BeetsContentResolver;
 
 /**
  * Used to query {@link MediaStore.Audio.Genres.Members.EXTERNAL_CONTENT_URI}
@@ -108,7 +109,7 @@ public class GenreSongLoader extends WrappedAsyncTaskLoader<List<Song>> {
         final StringBuilder selection = new StringBuilder();
         selection.append(MediaStore.Audio.Genres.Members.IS_MUSIC + "=1");
         selection.append(" AND " + MediaStore.Audio.Genres.Members.TITLE + "!=''"); //$NON-NLS-2$
-        return context.getContentResolver().query(
+        return BeetsContentResolver.query(
                 MediaStore.Audio.Genres.Members.getContentUri("external", genreId), new String[] {
                         /* 0 */
                         MediaStore.Audio.Genres.Members._ID,

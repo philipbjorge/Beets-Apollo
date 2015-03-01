@@ -11,6 +11,9 @@
 
 package com.andrew.apollo.loaders;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.provider.BaseColumns;
@@ -19,9 +22,7 @@ import android.provider.MediaStore.Audio.GenresColumns;
 
 import com.andrew.apollo.model.Genre;
 import com.andrew.apollo.utils.Lists;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.philipbjorge.beets.BeetsContentResolver;
 
 /**
  * Used to query {@link MediaStore.Audio.Genres.EXTERNAL_CONTENT_URI} and return
@@ -90,7 +91,7 @@ public class GenreLoader extends WrappedAsyncTaskLoader<List<Genre>> {
     public static final Cursor makeGenreCursor(final Context context) {
         final StringBuilder selection = new StringBuilder();
         selection.append(MediaStore.Audio.Genres.NAME + " != ''");
-        return context.getContentResolver().query(MediaStore.Audio.Genres.EXTERNAL_CONTENT_URI,
+        return BeetsContentResolver.query(MediaStore.Audio.Genres.EXTERNAL_CONTENT_URI,
                 new String[] {
                         /* 0 */
                         BaseColumns._ID,
