@@ -106,7 +106,7 @@ public class BeetsContentResolver {
 			if (sortOrder != null)
 				holder.put("sortOrder", sortOrder);
 
-			JSONArray a = webb.post(postUri).body(holder).ensureSuccess().retry(3, false)
+			JSONArray a = webb.post(postUri).body(holder).ensureSuccess().retry(2, false)
 					.asJsonArray().getBody();
 
 			// handles audio._id AS xyz
