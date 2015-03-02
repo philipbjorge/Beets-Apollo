@@ -57,7 +57,7 @@ public class BeetsContentResolver {
 			return null; // pass through
 		}
 
-		MatrixCursor c = new MatrixCursor(projection);
+		MatrixCursor c = null;
 
 		// TODO: NASTY NASTY NASTY Hack to make the static musicutils resolvers
 		// work
@@ -108,6 +108,12 @@ public class BeetsContentResolver {
 			JSONArray a = webb.post(postUri).body(holder).ensureSuccess()
 					.asJsonArray().getBody();
 
+			// handles audio._id AS xyz
+			for (int i = 0; i < projection.length; i++) {
+				String p = projection[i];
+				projection[i] = p.substring(p.lastIndexOf(" ")+1);
+			}
+			c = new MatrixCursor(projection);
 			for (int i = 0; i < a.length(); i++) {
 				JSONObject o = a.getJSONObject(i);
 
@@ -124,6 +130,8 @@ public class BeetsContentResolver {
 	}
 
 	public static ParcelFileDescriptor openFileDescriptor(Uri uri, String string) {
+		// TODO: Consider reverting changes in ImageWorker
+		// and making this fetch from the web and return ParcelFileDescriptor
 		return null;
 	}
 
