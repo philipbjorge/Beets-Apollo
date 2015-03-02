@@ -34,7 +34,8 @@ public class BeetsContentResolver {
 				"/genres");
 	}
 
-	private static final String base_url = "http://192.168.0.110:8080";
+	public static final String base_url = "http://192.168.0.110:8085";
+	public static final String stream_url = base_url + "/stream?";
 
 	public static Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
@@ -124,6 +125,7 @@ public class BeetsContentResolver {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 
 		return c;
