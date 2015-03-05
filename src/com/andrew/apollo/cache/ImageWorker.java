@@ -231,13 +231,20 @@ public abstract class ImageWorker {
                     && mImageCache != null && ApolloUtils.isOnline(mContext)) {
             	Cursor c = BeetsContentResolver.query(MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
             			new String[] { "album_art" }, "_id=?", new String[] { String.valueOf(mAlbumId) }, null);
-            	if (c.moveToFirst())
-            	{
-	            	mUrl = c.getString(0);
-	            	if (mUrl != null && mUrl.length() > 0)
-	            	{
-	            		bitmap = processBitmap(mUrl);
-	            	}
+                try
+                {
+                    if (c.moveToFirst())
+                    {
+                        mUrl = c.getString(0);
+                        if (mUrl != null && mUrl.length() > 0)
+                        {
+                            bitmap = processBitmap(mUrl);
+                        }
+                    }
+                }
+                catch (Exception e) {
+                    mUrl = null;
+                    bitmap = null;
             	}
             }
 
