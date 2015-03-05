@@ -1078,7 +1078,7 @@ public class MusicPlaybackService extends Service {
             updateCursor(mPlayList[mPlayPos]);
             while (true) {
                 if (mCursor != null && !mCursor.isClosed()
-                        && openFile(BeetsContentResolver.stream_url + "id=" + mCursor.getLong(IDCOLIDX))) {
+                        && openFile(BeetsContentResolver.getStreamUrl() + "id=" + mCursor.getLong(IDCOLIDX))) {
                     break;
                 }
                 // if we get here then opening the file failed. We can close the
@@ -1199,7 +1199,7 @@ public class MusicPlaybackService extends Service {
         if (D) Log.d(TAG, "setNextTrack: next play position = " + mNextPlayPos);
         if (mNextPlayPos >= 0 && mPlayList != null) {
             final long id = mPlayList[mNextPlayPos];
-            mPlayer.setNextDataSource(BeetsContentResolver.stream_url + "id=" + id);
+            mPlayer.setNextDataSource(BeetsContentResolver.getStreamUrl() + "id=" + id);
         } else {
             mPlayer.setNextDataSource(null);
         }
@@ -1609,7 +1609,7 @@ public class MusicPlaybackService extends Service {
                     // Ignore
                 }
 
-                if (id != -1 && path.startsWith(BeetsContentResolver.stream_url)) {
+                if (id != -1 && path.startsWith(BeetsContentResolver.getStreamUrl())) {
                     updateCursor(uri);
 
                 } else if (id != -1 && path.startsWith(MediaStore.Files.getContentUri(

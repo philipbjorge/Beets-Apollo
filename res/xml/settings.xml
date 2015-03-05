@@ -29,15 +29,16 @@
             android:key="theme_chooser"
             android:title="@string/settings_theme_chooser_title" />
     </PreferenceCategory>
+    <!-- Remote Server catetory -->
+    <PreferenceCategory android:title="@string/settings_remote_server_category" >
+		<EditTextPreference
+		    android:defaultValue=""
+		    android:key="beets_base_url"
+		    android:title="@string/settings_beets_base_url_title" />
+    </PreferenceCategory>
     <!-- Data catetory -->
     <PreferenceCategory android:title="@string/settings_data_category" >
 
-        <!-- Only on Wi-Fi -->
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:key="only_on_wifi"
-            android:summary="@string/settings_download_only_on_wifi_summary"
-            android:title="@string/settings_download_only_on_wifi_title" />
         <!-- Missing artwork -->
         <CheckBoxPreference
             android:defaultValue="true"

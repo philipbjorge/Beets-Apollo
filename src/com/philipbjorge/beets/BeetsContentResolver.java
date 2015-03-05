@@ -6,6 +6,7 @@ import java.util.Map;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
@@ -14,6 +15,8 @@ import android.os.ParcelFileDescriptor;
 import android.os.StrictMode;
 import android.provider.MediaStore;
 
+import com.andrew.apollo.ApolloApplication;
+import com.andrew.apollo.utils.PreferenceUtils;
 import com.goebl.david.Webb;
 
 public class BeetsContentResolver {
@@ -34,9 +37,10 @@ public class BeetsContentResolver {
 				"/genres");
 	}
 
-	public static final String base_url = "http://192.168.0.110:8085";
-	public static final String stream_url = base_url + "/stream?";
-
+	public static String getStreamUrl() {
+		return PreferenceUtils.getInstance(ApolloApplication.getAppContext()).getBeetsBaseUrl() + "/stream?";
+	}
+	
 	public static Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
 		return query(uri, projection, selection, selectionArgs, sortOrder, null);
@@ -70,7 +74,7 @@ public class BeetsContentResolver {
 
 		try {
 			Webb webb = Webb.create();
-			webb.setBaseUri(base_url);
+			webb.setBaseUri(PreferenceUtils.getInstance(ApolloApplication.getAppContext()).getBeetsBaseUrl());
 
 			// Hack
 			String postUri = "";

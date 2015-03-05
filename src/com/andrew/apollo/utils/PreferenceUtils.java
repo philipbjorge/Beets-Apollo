@@ -68,6 +68,8 @@ public final class PreferenceUtils {
 
     // Key used to download images only on Wi-Fi
     public static final String ONLY_ON_WIFI = "only_on_wifi";
+    
+    public static final String BEETS_BASE_URL = "beets_base_url";
 
     // Key that gives permissions to download missing album covers
     public static final String DOWNLOAD_MISSING_ARTWORK = "download_missing_artwork";
@@ -164,7 +166,7 @@ public final class PreferenceUtils {
      *         false otherwise
      */
     public final boolean onlyOnWifi() {
-        return mPreferences.getBoolean(ONLY_ON_WIFI, true);
+        return false;
     }
 
     /**
@@ -274,6 +276,10 @@ public final class PreferenceUtils {
      */
     public final String getAlbumSortOrder() {
         return mPreferences.getString(ALBUM_SORT_ORDER, SortOrder.AlbumSortOrder.ALBUM_A_Z);
+    }
+    
+    public final String getBeetsBaseUrl() {
+    	return mPreferences.getString(BEETS_BASE_URL, "");
     }
 
     /**

@@ -12,6 +12,7 @@
 package com.andrew.apollo;
 
 import android.app.Application;
+import android.content.Context;
 import android.os.StrictMode;
 
 import com.andrew.apollo.cache.ImageCache;
@@ -29,16 +30,22 @@ import java.util.logging.Logger;
  */
 public class ApolloApplication extends Application {
     private static final boolean DEBUG = false;
-
+    private static Context context;
+    
     /**
      * {@inheritDoc}
      */
     @Override
     public void onCreate() {
+    	ApolloApplication.context = getApplicationContext();
         // Enable strict mode logging
         enableStrictMode();
         // Turn off logging for jaudiotagger.
         Logger.getLogger("org.jaudiotagger").setLevel(Level.OFF);
+    }
+    
+    public static Context getAppContext() {
+        return ApolloApplication.context;
     }
 
     /**
